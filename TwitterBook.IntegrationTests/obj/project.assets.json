@@ -8,6 +8,22 @@
           "build/netstandard1.0/coverlet.collector.targets": {}
         }
       },
+      "FluentAssertions/6.8.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Configuration.ConfigurationManager": "4.4.0"
+        },
+        "compile": {
+          "lib/net6.0/FluentAssertions.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/FluentAssertions.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
       "Humanizer.Core/2.8.26": {
         "type": "package",
         "compile": {
@@ -2385,7 +2401,7 @@
           "System.Security.Permissions": "4.7.0"
         },
         "compile": {
-          "ref/netstandard2.0/_._": {
+          "ref/netstandard2.0/System.Configuration.ConfigurationManager.dll": {
             "related": ".xml"
           }
         },
@@ -3227,7 +3243,7 @@
           "System.Security.Principal.Windows": "4.7.0"
         },
         "compile": {
-          "ref/netstandard2.0/_._": {
+          "ref/netstandard2.0/System.Security.AccessControl.dll": {
             "related": ".xml"
           }
         },
@@ -3498,7 +3514,7 @@
           "System.Windows.Extensions": "4.7.0"
         },
         "compile": {
-          "ref/netcoreapp3.0/_._": {
+          "ref/netcoreapp3.0/System.Security.Permissions.dll": {
             "related": ".xml"
           }
         },
@@ -3525,7 +3541,7 @@
       "System.Security.Principal.Windows/4.7.0": {
         "type": "package",
         "compile": {
-          "ref/netcoreapp3.0/_._": {
+          "ref/netcoreapp3.0/System.Security.Principal.Windows.dll": {
             "related": ".xml"
           }
         },
@@ -3716,7 +3732,7 @@
           "System.Drawing.Common": "4.7.0"
         },
         "compile": {
-          "ref/netcoreapp3.0/_._": {
+          "ref/netcoreapp3.0/System.Windows.Extensions.dll": {
             "related": ".xml"
           }
         },
@@ -3985,6 +4001,36 @@
         "coverlet-icon.png",
         "coverlet.collector.3.1.2.nupkg.sha512",
         "coverlet.collector.nuspec"
+      ]
+    },
+    "FluentAssertions/6.8.0": {
+      "sha512": "NfSlAG97wMxS48Ov+wQEhJITdn4bKrgtKrG4sCPrFBVKozpC57lQ2vzsPdxUOsPbfEgEQTMtvCDECxIlDBfgNA==",
+      "type": "package",
+      "path": "fluentassertions/6.8.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "FluentAssertions.png",
+        "fluentassertions.6.8.0.nupkg.sha512",
+        "fluentassertions.nuspec",
+        "lib/net47/FluentAssertions.dll",
+        "lib/net47/FluentAssertions.pdb",
+        "lib/net47/FluentAssertions.xml",
+        "lib/net6.0/FluentAssertions.dll",
+        "lib/net6.0/FluentAssertions.pdb",
+        "lib/net6.0/FluentAssertions.xml",
+        "lib/netcoreapp2.1/FluentAssertions.dll",
+        "lib/netcoreapp2.1/FluentAssertions.pdb",
+        "lib/netcoreapp2.1/FluentAssertions.xml",
+        "lib/netcoreapp3.0/FluentAssertions.dll",
+        "lib/netcoreapp3.0/FluentAssertions.pdb",
+        "lib/netcoreapp3.0/FluentAssertions.xml",
+        "lib/netstandard2.0/FluentAssertions.dll",
+        "lib/netstandard2.0/FluentAssertions.pdb",
+        "lib/netstandard2.0/FluentAssertions.xml",
+        "lib/netstandard2.1/FluentAssertions.dll",
+        "lib/netstandard2.1/FluentAssertions.pdb",
+        "lib/netstandard2.1/FluentAssertions.xml"
       ]
     },
     "Humanizer.Core/2.8.26": {
@@ -11345,6 +11391,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "FluentAssertions >= 6.8.0",
       "Microsoft.AspNet.WebApi.Client >= 5.2.9",
       "Microsoft.AspNetCore.Mvc.Testing >= 6.0.11",
       "Microsoft.EntityFrameworkCore.InMemory >= 6.0.11",
@@ -11361,11 +11408,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\blend\\OneDrive\\Desktop\\TwitterBook\\TwitterBook.IntegrationTests\\TwitterBook.IntegrationTests.csproj",
+      "projectUniqueName": "C:\\Users\\blend\\OneDrive\\Desktop\\TweetBook\\TwitterBook.IntegrationTests\\TwitterBook.IntegrationTests.csproj",
       "projectName": "TwitterBook.IntegrationTests",
-      "projectPath": "C:\\Users\\blend\\OneDrive\\Desktop\\TwitterBook\\TwitterBook.IntegrationTests\\TwitterBook.IntegrationTests.csproj",
+      "projectPath": "C:\\Users\\blend\\OneDrive\\Desktop\\TweetBook\\TwitterBook.IntegrationTests\\TwitterBook.IntegrationTests.csproj",
       "packagesPath": "C:\\Users\\blend\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\blend\\OneDrive\\Desktop\\TwitterBook\\TwitterBook.IntegrationTests\\obj\\",
+      "outputPath": "C:\\Users\\blend\\OneDrive\\Desktop\\TweetBook\\TwitterBook.IntegrationTests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\blend\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -11382,8 +11429,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\blend\\OneDrive\\Desktop\\TwitterBook\\TwitterBook\\TwitterBook.csproj": {
-              "projectPath": "C:\\Users\\blend\\OneDrive\\Desktop\\TwitterBook\\TwitterBook\\TwitterBook.csproj"
+            "C:\\Users\\blend\\OneDrive\\Desktop\\TweetBook\\TwitterBook\\TwitterBook.csproj": {
+              "projectPath": "C:\\Users\\blend\\OneDrive\\Desktop\\TweetBook\\TwitterBook\\TwitterBook.csproj"
             }
           }
         }
@@ -11398,6 +11445,10 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "FluentAssertions": {
+            "target": "Package",
+            "version": "[6.8.0, )"
+          },
           "Microsoft.AspNet.WebApi.Client": {
             "target": "Package",
             "version": "[5.2.9, )"

@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "7B9eDWh1ku54nFQ0N4tZ+vNgYoURSsdLYpmXzmXLOVfhxcF2smeUIbYHZZQXRBHGo5xfUyPr0t0bCqo3Tr/l9A==",
+  "dgSpecHash": "fSbRTBirnuErNt1QPkjr96uUktwRkaBkmqwi0sOpFgBdQJXuLd4/qTnkiYl/biGrNecZqqc7H2e652A9ZQQy0A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\blend\\OneDrive\\Desktop\\TwitterBook\\TwitterBook.IntegrationTests\\TwitterBook.IntegrationTests.csproj",
+  "projectFilePath": "C:\\Users\\blend\\OneDrive\\Desktop\\TweetBook\\TwitterBook.IntegrationTests\\TwitterBook.IntegrationTests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\blend\\.nuget\\packages\\coverlet.collector\\3.1.2\\coverlet.collector.3.1.2.nupkg.sha512",
+    "C:\\Users\\blend\\.nuget\\packages\\fluentassertions\\6.8.0\\fluentassertions.6.8.0.nupkg.sha512",
     "C:\\Users\\blend\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\blend\\.nuget\\packages\\microsoft.aspnet.webapi.client\\5.2.9\\microsoft.aspnet.webapi.client.5.2.9.nupkg.sha512",
     "C:\\Users\\blend\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.11\\microsoft.aspnetcore.authentication.jwtbearer.6.0.11.nupkg.sha512",
