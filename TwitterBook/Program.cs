@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 InstallerExtensions.InstallServicesInAssembly(builder.Services,builder.Configuration);
 
 var app = builder.Build();
+
 // Configure the HTTP request pipeline.
 
 if (app.Environment.IsDevelopment())

@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Swashbuckle.Swagger.Model;
 using TwitterBook.Data;
 using TwitterBook.Domain;
 
@@ -42,7 +44,14 @@ public class PostService : IPostService
         {
             return false;
         }
+
         return true;
+    }
+
+    public Task<List<Tags>> GetAllTagsAsync()
+    {
+        var tags = _dataContext.Tags.AsQueryable().DistinctBy(x=>x.TagName).ToList();
+        return Task.FromResult(tags);
     }
 
     public async Task<bool> UpdatePostAsync(Post postToUpdate)

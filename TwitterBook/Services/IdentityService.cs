@@ -98,7 +98,6 @@ public class IdentityService : IIdentityService
         var token = tokenHandler.CreateToken(tokenDescriptor);
         RefreshToken refreshToken = new()
         {
-            Token = Guid.NewGuid().ToString(),
             JwtId = token.Id,
             UserId = user.Id,
             ExpiryDate = DateTime.UtcNow.AddMonths(6),

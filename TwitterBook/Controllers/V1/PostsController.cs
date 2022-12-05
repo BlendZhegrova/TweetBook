@@ -82,7 +82,7 @@ namespace TwitterBook.Controllers.V1
             };
 
             await _postService.CreatePostAsync(post);
-
+            
             var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
             var locationUri = baseUrl + "/" + ApiRoutes.Posts.Get.Replace("{postId}", post.Id.ToString());
             var response = new PostResponse { Id = post.Id };
