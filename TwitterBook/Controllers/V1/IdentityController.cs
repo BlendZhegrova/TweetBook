@@ -53,7 +53,7 @@ public class IdentityController : Controller
         {
             Token = authResponse.Token,
             RefreshToken = authResponse.RefreshToken
-            
+             
         });
     }
     [HttpPost(ApiRoutes.Identity.Refresh)]

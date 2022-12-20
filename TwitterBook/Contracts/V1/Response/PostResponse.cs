@@ -6,7 +6,7 @@ namespace TwitterBook.Contracts.V1.Response
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public string userId { get; set; }
-        public List<Tags> Tags { get; set; }
+        public string UserId { get; set; }
+        public IEnumerable<TagResponse> Tags { get; set; }
     }
 }

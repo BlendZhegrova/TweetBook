@@ -14,5 +14,6 @@ namespace TwitterBook.Data
         public DbSet<Post> Posts { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<Tags> Tags { get; set; }
+        public DbSet<PostTag> PostTags { get; set; }
     }
 }

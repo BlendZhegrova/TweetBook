@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TwitterBook.Data;
 
@@ -11,9 +12,10 @@ using TwitterBook.Data;
 namespace TwitterBook.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20221214140650_newmig1213")]
+    partial class newmig1213
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -245,30 +247,6 @@ namespace TwitterBook.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("TwitterBook.Domain.PostTag", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<Guid>("PostId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("TagName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PostId");
-
-                    b.HasIndex("TagName");
-
-                    b.ToTable("PostTag");
-                });
-
             modelBuilder.Entity("TwitterBook.Domain.RefreshToken", b =>
                 {
                     b.Property<string>("Token")
@@ -390,25 +368,6 @@ namespace TwitterBook.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("TwitterBook.Domain.PostTag", b =>
-                {
-                    b.HasOne("TwitterBook.Domain.Post", "Post")
-                        .WithMany("PostTags")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TwitterBook.Domain.Tags", "Tags")
-                        .WithMany()
-                        .HasForeignKey("TagName")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Post");
-
-                    b.Navigation("Tags");
-                });
-
             modelBuilder.Entity("TwitterBook.Domain.RefreshToken", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
@@ -429,11 +388,6 @@ namespace TwitterBook.Migrations
                         .IsRequired();
 
                     b.Navigation("Post");
-                });
-
-            modelBuilder.Entity("TwitterBook.Domain.Post", b =>
-                {
-                    b.Navigation("PostTags");
                 });
 #pragma warning restore 612, 618
         }

@@ -25,23 +25,34 @@ namespace TwitterBook.Controllers.V1
         [HttpGet(ApiRoutes.Posts.GetAll)]
         public async Task<IActionResult> AllPostsAsync()
         {
-            return Ok(await _postService.GetPostsAsync());
+            var posts = await _postService.GetPostsAsync();
+            var postResponse = posts.Select(post => new PostResponse
+            {
+                Id = post.Id,
+                Name = post.Name,
+                Tags = post.PostTags.Select(x => new TagResponse { Name = x.TagName })
+            });
+            return Ok(postResponse);
         }
 
         [HttpGet(ApiRoutes.Posts.Get)]
         public async Task<IActionResult> Get([FromRoute] Guid postId)
         {
             var post = await _postService.GetPostByIdAsync(postId);
-
             if (post == null)
                 return NotFound();
-            return Ok(post);
+            return Ok(new PostResponse
+            {
+                Id = post.Id ,
+                Name = post.Name,
+                Tags = post.PostTags.Select(x=> new TagResponse{Name = x.TagName})
+            });
         }
 
         [HttpPut(ApiRoutes.Posts.Update)]
         public async Task<IActionResult> Get([FromRoute] Guid postId, [FromBody] UpdatePostRequest request)
         {
-            var userOwnsPost = await _postService.UserOwnsPostAsync(postId,HttpContext.GetUserId());
+            var userOwnsPost = await _postService.UserOwnsPostAsync(postId, HttpContext.GetUserId());
             if (!userOwnsPost)
             {
                 return BadRequest(new { error = "You do not own this post" });
@@ -49,10 +60,15 @@ namespace TwitterBook.Controllers.V1
 
             var post = await _postService.GetPostByIdAsync(postId);
             post.Name = request.Name;
-            
+
             var updated = await _postService.UpdatePostAsync(post);
             if (updated)
-                return Ok(post);
+                return Ok(new PostResponse
+                {
+                    Id = post.Id,
+                    Name = post.Name,
+                    Tags = post.PostTags.Select(x => new TagResponse { Name = x.TagName })
+                });
 
             return NotFound();
         }
@@ -60,18 +76,18 @@ namespace TwitterBook.Controllers.V1
         [HttpDelete(ApiRoutes.Posts.Delete)]
         public async Task<IActionResult> Delete([FromRoute] Guid postId)
         {
-            var userOwnsPost = await _postService.UserOwnsPostAsync(postId,HttpContext.GetUserId());
+            var userOwnsPost = await _postService.UserOwnsPostAsync(postId, HttpContext.GetUserId());
             if (!userOwnsPost)
             {
                 return BadRequest(new { error = "You do not own this post" });
             }
-            
+
             var deleted = await _postService.DeletePostAsync(postId);
             if (deleted)
                 return NoContent();
             return NotFound();
         }
-        
+
         [HttpPost(ApiRoutes.Posts.Create)]
         public async Task<IActionResult> Create([FromBody] CreatePostRequest postRequest)
         {
@@ -80,12 +96,17 @@ namespace TwitterBook.Controllers.V1
                 Name = postRequest.Name,
                 UserId = HttpContext.GetUserId()
             };
+            var userId = HttpContext.GetUserId();
+            await _postService.CreatePostAsync(postRequest, userId);
 
-            await _postService.CreatePostAsync(post);
-            
             var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
             var locationUri = baseUrl + "/" + ApiRoutes.Posts.Get.Replace("{postId}", post.Id.ToString());
-            var response = new PostResponse { Id = post.Id };
+            var response = new PostResponse
+            {
+                Id = post.Id,
+                Name = post.Name,
+                Tags = post.PostTags.Select(x => new TagResponse { Name = x.TagName })
+            };
             return Created(locationUri, response);
         }
     }

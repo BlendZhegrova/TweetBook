@@ -38,12 +38,17 @@ public class IdentityService : IIdentityService
             };
         }
 
+        var newUserId = Guid.NewGuid();
         var newUser = new IdentityUser()
         {
+            Id = newUserId.ToString(),
             Email = email,
             UserName = email,
         };
         var createdUser = await _userManager.CreateAsync(newUser, password);
+        
+        await _userManager.AddClaimAsync(newUser, new Claim("tags.View","true"));
+        
         if (!createdUser.Succeeded)
         {
             return new AuthenticationResult
@@ -81,17 +86,27 @@ public class IdentityService : IIdentityService
 
     private async Task<AuthenticationResult> GenerateAuthenticationResultForUserAsync(IdentityUser user)
     {
+        
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(_jwtSettings.Secret);
+        var claims = new List<Claim>
+        {
+            new Claim(JwtRegisteredClaimNames.Sub, user.Email), //
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()), //token identifier
+            new Claim(JwtRegisteredClaimNames.Email, user.Email),
+            new Claim("id", user.Id),
+        };
+        
+        var userClaims = await _userManager.GetClaimsAsync(user);
+        var userRoles = await _userManager.GetRolesAsync(user);
+        foreach (var role in userRoles)
+        {
+            claims.Add(new Claim("role",role));
+        }
+        
         var tokenDescriptor = new SecurityTokenDescriptor
         {
-            Subject = new ClaimsIdentity(new[]
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, user.Email), //
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()), //token identifier
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim("id", user.Id)
-            }),
+            Subject = new ClaimsIdentity(claims),
             Expires = DateTime.UtcNow.Add(_jwtSettings.TokenLifeTime),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)
         };

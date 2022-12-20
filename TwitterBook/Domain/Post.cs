@@ -6,14 +6,11 @@ namespace TwitterBook.Domain
 {
     public class Post
     {
-        [Key]
-        public Guid Id { get; set; }
+        [Key] public Guid Id { get; set; }
         public string Name { get; set; }
-        public string Tag { get; set; }
-        public string TagName { get; set; }
         public string UserId { get; set; }
-        [ForeignKey(nameof(UserId))]
+        [ForeignKey(nameof(UserId))] 
         public IdentityUser User { get; set; }
-
+        public virtual IEnumerable<PostTag> PostTags { get; set; }
     }
 }
