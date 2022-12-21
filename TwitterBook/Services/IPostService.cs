@@ -10,7 +10,7 @@ public interface IPostService
     Task<Post> GetPostByIdAsync(Guid postId);
     Task<bool> UpdatePostAsync(Post postToUpdate);
     Task<bool> DeletePostAsync(Guid postId);
-    Task<bool> CreatePostAsync(CreatePostRequest postRequest,string userId);
+    Task<bool> CreatePostAsync(Post post);
     Task<bool> UserOwnsPostAsync(Guid postId, string userId);
 
     Task<bool> CreateTagsAsync(List<string> tagsList, Guid postId,string userId);

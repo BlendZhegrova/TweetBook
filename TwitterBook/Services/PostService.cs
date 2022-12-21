@@ -16,36 +16,50 @@ public class PostService : IPostService
     {
         _dataContext = dataContext;
     }
+
     public async Task<List<Post>> GetPostsAsync()
     {
         return await _dataContext.Posts.ToListAsync();
     }
+
     public async Task<Post> GetPostByIdAsync(Guid postId)
     {
         return await _dataContext.Posts.SingleOrDefaultAsync(x => x.Id == postId);
     }
-    public async Task<bool> CreatePostAsync(CreatePostRequest postRequest, string userId)
+
+    public async Task<bool> CreatePostAsync(Post post)
     {
-        var post = new Post
+        foreach (var postPostTag in post.PostTags)
         {
-            Id = Guid.NewGuid(),
-            Name = postRequest.Name,
-            UserId = userId,
-        };
-        await _dataContext.Posts.AddAsync(post);
-        foreach (var tag in postRequest.tagNames)
-        {
-            PostTag NewTag = new()
-            {
-                TagName = tag,
-                PostId = post.Id,
-            };
-            await _dataContext.PostTags.AddAsync(NewTag);
+            postPostTag.TagName = postPostTag.TagName.ToLower();
         }
 
+        await AddNewTags(post);
+        
+        await _dataContext.Posts.AddAsync(post);
         var created = await _dataContext.SaveChangesAsync();
         return created > 0;
     }
+
+    private async Task<bool> AddNewTags(Post post)
+    {
+        if (post != null)
+        {
+            foreach (var tag in post.PostTags)
+            {
+                tag.Post = post;
+                await _dataContext.PostTags.AddAsync(tag);
+            }
+
+            // var added = await _dataContext.SaveChangesAsync();
+            // if (added > 0)
+            return true;
+        }
+
+        return false;
+        // return false;
+    }
+
     public async Task<bool> UserOwnsPostAsync(Guid postId, string userId)
     {
         var post = await _dataContext.Posts.AsNoTracking().SingleOrDefaultAsync(x => x.Id == postId);
@@ -61,6 +75,7 @@ public class PostService : IPostService
 
         return true;
     }
+
     public async Task<bool> UpdatePostAsync(Post postToUpdate)
     {
         _dataContext.Posts.Update(postToUpdate);
@@ -75,7 +90,7 @@ public class PostService : IPostService
         var deleted = await _dataContext.SaveChangesAsync();
         return deleted > 0;
     }
-    
+
     public async Task<List<Tags>> GetAllTagsAsync()
     {
         return await _dataContext.Tags.ToListAsync();
@@ -85,12 +100,14 @@ public class PostService : IPostService
     {
         return await _dataContext.Tags.SingleOrDefaultAsync(x => x.Id == tagId);
     }
+
     public async Task<bool> CreateTagsAsync(List<string> tagsList, Guid postId, string userId)
     {
         if (tagsList.Count == 0 && postId == null)
         {
             return false;
         }
+
         foreach (var tag in tagsList)
         {
             Tags NewTag = new()
@@ -112,9 +129,10 @@ public class PostService : IPostService
         var updated = await _dataContext.SaveChangesAsync();
         return updated > 0;
     }
+
     public async Task<bool> DeleteTagAsync(string tagId)
     {
-        var tag = await _dataContext.Tags.SingleOrDefaultAsync(x=> x.Id == tagId);
+        var tag = await _dataContext.Tags.SingleOrDefaultAsync(x => x.Id == tagId);
         _dataContext.Tags.Remove(tag);
         var deleted = await _dataContext.SaveChangesAsync();
         return deleted > 0;

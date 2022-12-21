@@ -258,15 +258,13 @@ namespace TwitterBook.Migrations
 
                     b.Property<string>("TagName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PostId");
 
-                    b.HasIndex("TagName");
-
-                    b.ToTable("PostTag");
+                    b.ToTable("PostTags");
                 });
 
             modelBuilder.Entity("TwitterBook.Domain.RefreshToken", b =>
@@ -398,15 +396,7 @@ namespace TwitterBook.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TwitterBook.Domain.Tags", "Tags")
-                        .WithMany()
-                        .HasForeignKey("TagName")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Post");
-
-                    b.Navigation("Tags");
                 });
 
             modelBuilder.Entity("TwitterBook.Domain.RefreshToken", b =>
