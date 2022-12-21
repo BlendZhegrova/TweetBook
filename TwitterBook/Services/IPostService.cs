@@ -13,7 +13,7 @@ public interface IPostService
     Task<bool> CreatePostAsync(Post post);
     Task<bool> UserOwnsPostAsync(Guid postId, string userId);
 
-    Task<bool> CreateTagsAsync(List<string> tagsList, Guid postId,string userId);
+    Task<bool> CreateTagsAsync(Tags tag);
     Task<List<Tags>> GetAllTagsAsync();
     public Task<bool> DeleteTagAsync(string tagId);
     public Task<bool> UpdateTagAsync(Tags tagToUpdate);

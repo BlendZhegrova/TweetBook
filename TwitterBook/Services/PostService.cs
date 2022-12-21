@@ -19,7 +19,7 @@ public class PostService : IPostService
 
     public async Task<List<Post>> GetPostsAsync()
     {
-        return await _dataContext.Posts.ToListAsync();
+        return await _dataContext.Posts.Include(x => x.PostTags).ToListAsync();
     }
 
     public async Task<Post> GetPostByIdAsync(Guid postId)
@@ -35,7 +35,7 @@ public class PostService : IPostService
         }
 
         await AddNewTags(post);
-        
+
         await _dataContext.Posts.AddAsync(post);
         var created = await _dataContext.SaveChangesAsync();
         return created > 0;
@@ -76,6 +76,7 @@ public class PostService : IPostService
         return true;
     }
 
+
     public async Task<bool> UpdatePostAsync(Post postToUpdate)
     {
         _dataContext.Posts.Update(postToUpdate);
@@ -101,26 +102,14 @@ public class PostService : IPostService
         return await _dataContext.Tags.SingleOrDefaultAsync(x => x.Id == tagId);
     }
 
-    public async Task<bool> CreateTagsAsync(List<string> tagsList, Guid postId, string userId)
+    public async Task<bool> CreateTagsAsync(Tags tag)
     {
-        if (tagsList.Count == 0 && postId == null)
-        {
-            return false;
-        }
+        await _dataContext.Tags.AddAsync(tag);
 
-        foreach (var tag in tagsList)
-        {
-            Tags NewTag = new()
-            {
-                TagName = tag,
-                PostId = postId,
-                CreatorId = userId
-            };
-            _dataContext.Tags.Add(NewTag);
-        }
-
-        await _dataContext.SaveChangesAsync();
-        return true;
+        var created = await _dataContext.SaveChangesAsync();
+        if (created > 0)
+            return true;
+        return false;
     }
 
     public async Task<bool> UpdateTagAsync(Tags tagToUpdate)

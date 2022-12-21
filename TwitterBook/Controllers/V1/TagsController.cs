@@ -11,33 +11,60 @@ using TwitterBook.Extensions;
 using TwitterBook.Services;
 
 namespace TwitterBook.Controllers.V1;
-[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,Roles = "Admin")]
+
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
 public class Tags : Controller
 {
     private readonly IPostService _postService;
+
     public Tags(IPostService postService)
     {
         _postService = postService;
     }
+
     [HttpGet(ApiRoutes.Tags.GetAll)]
     public async Task<IActionResult> GetAllAsync()
     {
         return Ok(await _postService.GetAllTagsAsync());
     }
+
     [HttpGet(ApiRoutes.Tags.Get)]
     public async Task<IActionResult> GetTag(string tagId)
     {
         var tag = await _postService.GetTagById(tagId);
         if (tag == null)
             return NotFound();
-        return Ok(new TagResponse 
+        return Ok(new TagResponse
         {
             Name = tag.TagName,
         });
     }
-    [HttpPut(ApiRoutes.Tags.Create)]
-    
-    [HttpPut(ApiRoutes.Tags.Update)]
+
+    [HttpPost(ApiRoutes.Tags.Create)]
+    public async Task<IActionResult> Create([FromBody] CreateTagRequest request)
+    {
+        var userID = HttpContext.GetUserId();
+        Domain.Tags newTag = new()
+        {
+            Id = Guid.NewGuid().ToString(),
+            TagName = request.TagName,
+            CreatorId = userID
+        };
+        var created = await _postService.CreateTagsAsync(newTag);
+        if (!created)
+            return BadRequest();
+
+        var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
+        var locationUri = baseUrl + "/" + ApiRoutes.Tags.Get.Replace("{tagId}", newTag.Id.ToString());
+        var response = new TagResponse
+        {
+            TagId = newTag.Id,
+            Name = newTag.TagName
+        };
+        return Created(locationUri, response);
+    }
+
+    [HttpPut(ApiRoutes.Tags.Update)]    
     public async Task<IActionResult> UpdateTagAsync([FromBody] UpdateTagRequest request)
     {
         var tag = await _postService.GetTagById(request.Id);
@@ -46,6 +73,7 @@ public class Tags : Controller
         {
             return BadRequest();
         }
+
         var updated = await _postService.UpdateTagAsync(tag);
         if (updated)
         {
@@ -54,21 +82,25 @@ public class Tags : Controller
                 Name = tag.TagName,
             });
         }
+
         return NotFound();
     }
+
     [HttpDelete(ApiRoutes.Tags.Delete)]
-    public async Task<IActionResult> DeleteTagAsync([FromRoute]string tagId)
+    public async Task<IActionResult> DeleteTagAsync([FromRoute] string tagId)
     {
         var tag = await _postService.GetTagById(tagId);
         if (HttpContext.GetUserId() != tag.CreatorId)
         {
             return BadRequest();
         }
-        var deleted =await _postService.DeleteTagAsync(tagId);
+
+        var deleted = await _postService.DeleteTagAsync(tagId);
         if (deleted)
         {
             return NoContent();
         }
+
         return NotFound();
     }
 }

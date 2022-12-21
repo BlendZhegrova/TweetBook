@@ -10,7 +10,4 @@ public class Tags
     public string TagName { get; set; }
     public DateTime CreatedOn { get; set; }= DateTime.UtcNow;
     public string CreatorId { get; set; }
-    public Guid PostId { get; set; }
-    [ForeignKey(nameof(PostId))]
-    public Post Post { get; set; }
 }

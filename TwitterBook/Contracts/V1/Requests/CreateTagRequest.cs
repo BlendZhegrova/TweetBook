@@ -2,5 +2,5 @@
 
 public class CreateTagRequest
 {
-    public List<string> TagNames;
+    public string TagName;
 }

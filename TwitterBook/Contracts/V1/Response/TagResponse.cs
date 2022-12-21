@@ -2,7 +2,7 @@
 
 public class TagResponse
 {
-    public string TagId { get; set; }
-    public string Name { get; set; }
+    public string? TagId { get; set; }
+    public string? Name { get; set; }
     
 }
