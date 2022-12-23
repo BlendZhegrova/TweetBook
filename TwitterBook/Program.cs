@@ -8,13 +8,13 @@ using TwitterBook.Options;
 var builder = WebApplication.CreateBuilder(args);
 
 InstallerExtensions.InstallServicesInAssembly(builder.Services, builder.Configuration);
-var config = new MapperConfiguration(cfg =>
-{
-    cfg.AddProfile(new DomainToResponseProfile());
-});
-var mapper = config.CreateMapper();
-builder.Services.AddSingleton(mapper);
-
+// var config = new MapperConfiguration(cfg =>
+// {
+//     cfg.AddProfile(new DomainToResponseProfile());
+// });
+// var mapper = config.CreateMapper();
+// builder.Services.AddSingleton(mapper);
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

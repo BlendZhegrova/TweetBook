@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TwitterBook.Contracts.V1;
@@ -9,24 +10,26 @@ using TwitterBook.Services;
 
 namespace TwitterBook.Controllers.V1;
 
-[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin,Poster")]
 public class Tags : Controller
 {
     private readonly IPostService _postService;
-
-    public Tags(IPostService postService)
+    private readonly IMapper _mapper;
+    public Tags(IPostService postService, IMapper mapper)
     {
         _postService = postService;
+        _mapper = mapper;
     }
 
     [HttpGet(ApiRoutes.Tags.GetAll)]
     public async Task<IActionResult> GetAllAsync()
     {
         var tags = await _postService.GetAllTagsAsync();
-        var tagsResponse = tags.Select(x => new TagResponse
-        {
-            Name = x.TagName
-        }).ToList();
+        // var tagsResponse = tags.Select(x => new TagResponse
+        // {
+        //     TagName = x.TagName
+        // }).ToList();
+        var tagsResponse = _mapper.Map<List<TagResponse>>(tags);
         return Ok(tagsResponse);
     }
 
@@ -36,10 +39,7 @@ public class Tags : Controller
         var tag = await _postService.GetTagById(tagId);
         if (tag == null)
             return NotFound();
-        return Ok(new TagResponse
-        {
-            Name = tag.TagName,
-        });
+        return Ok(_mapper.Map<TagResponse>(tag));
     }
 
     [HttpPost(ApiRoutes.Tags.Create)]
@@ -58,10 +58,7 @@ public class Tags : Controller
 
         var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
         var locationUri = baseUrl + "/" + ApiRoutes.Tags.Get.Replace("{tagId}", newTag.Id);
-        var response = new TagResponse
-        {
-            Name = newTag.TagName
-        };
+        var response = _mapper.Map<TagResponse>(newTag);
         return Created(locationUri, response);
     }
 
@@ -75,10 +72,7 @@ public class Tags : Controller
         
         if (updated)
         {
-            return Ok(new TagResponse
-            {
-                Name = tag.TagName,
-            });
+            return Ok(_mapper.Map<TagResponse>(tag));
         }
 
         return NotFound();

@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "bXU0qWjHdnBO9uYJrjZwao8qP6+toZjgRCvGXh97cyx5x1qppit4FbZxSUJTfX46lP62JOM3fZVqRVab602/Tw==",
+  "dgSpecHash": "NAkafqopPR0zAhMr1cHMi0lOA1yoyQPVcr3RUBzz0yc3zOXp24o+WMxHYeWQuZNzz9MuYGGxDyJUOnBfj+Ltiw==",
   "success": true,
   "projectFilePath": "C:\\Users\\blend\\OneDrive\\Desktop\\TweetBook\\TwitterBook\\TwitterBook.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\blend\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
     "C:\\Users\\blend\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
+    "C:\\Users\\blend\\.nuget\\packages\\fluentvalidation\\11.4.0\\fluentvalidation.11.4.0.nupkg.sha512",
     "C:\\Users\\blend\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\blend\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.11\\microsoft.aspnetcore.authentication.jwtbearer.6.0.11.nupkg.sha512",
     "C:\\Users\\blend\\.nuget\\packages\\microsoft.aspnetcore.authorization\\1.0.0\\microsoft.aspnetcore.authorization.1.0.0.nupkg.sha512",

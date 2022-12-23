@@ -9,10 +9,11 @@ public class DomainToResponseProfile : Profile
 {
     public DomainToResponseProfile()
     {
-        CreateMap<Post, PostResponse>();
-            // .ForMember(dest => dest.PostTags,
-            //     opt=> opt.MapFrom(
-            //         src=>src.PostTags.Select(x=>new TagResponse{Name =x.TagName})) );
-        CreateMap<Tag, TagResponse>();
+        CreateMap<Post, PostResponse>()
+            .ForMember(dest => dest.PostTags,
+                opt => opt.MapFrom(
+                    src => src.PostTags.Select(x => new TagResponse { TagName = x.TagName })));
+
+        CreateMap<Tags, TagResponse>();
     }
 }

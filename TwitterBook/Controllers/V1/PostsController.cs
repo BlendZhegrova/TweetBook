@@ -11,11 +11,12 @@ using TwitterBook.Services;
 
 namespace TwitterBook.Controllers.V1
 {
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,Roles ="Poster")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Poster")]
     public class PostsController : Controller
     {
         private readonly IPostService _postService;
         private readonly IMapper _mapper;
+
         public PostsController(IPostService postService, IMapper mapper)
         {
             _postService = postService;
@@ -36,12 +37,7 @@ namespace TwitterBook.Controllers.V1
             var post = await _postService.GetPostByIdAsync(postId);
             if (post == null)
                 return NotFound();
-            return Ok(new PostResponse
-            {
-                Id = post.Id ,
-                Name = post.Name,
-                PostTags = post.PostTags.Select(x=> new TagResponse{Name = x.TagName})
-            });
+            return Ok(_mapper.Map<PostResponse>(post));
         }
 
         [HttpPut(ApiRoutes.Posts.Update)]
@@ -58,13 +54,7 @@ namespace TwitterBook.Controllers.V1
 
             var updated = await _postService.UpdatePostAsync(post);
             if (updated)
-                return Ok(new PostResponse
-                {
-                    Id = post.Id,
-                    Name = post.Name,
-                    UserId = post.UserId,
-                    PostTags = post.PostTags.Select(x => new TagResponse { Name = x.TagName })
-                });
+                return Ok(_mapper.Map<PostResponse>(post));
 
             return NotFound();
         }
@@ -93,19 +83,14 @@ namespace TwitterBook.Controllers.V1
                 Id = newpostId,
                 Name = postRequest.Name,
                 UserId = HttpContext.GetUserId(),
-                PostTags = postRequest.tagNames.Select(x=> new PostTag{PostId =newpostId,TagName = x}).ToList()
+                PostTags = postRequest.tagNames.Select(x => new PostTag { PostId = newpostId, TagName = x }).ToList()
             };
-            await _postService.CreatePostAsync(post);
+            if (!await _postService.CreatePostAsync(post))
+                return BadRequest();
 
             var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
             var locationUri = baseUrl + "/" + ApiRoutes.Posts.Get.Replace("{postId}", post.Id.ToString());
-            var response = new PostResponse
-            {
-                Id = post.Id,
-                Name = post.Name,
-                UserId = post.UserId,
-                PostTags = post.PostTags.Select(x => new TagResponse { Name = x.TagName })
-            };
+            var response = _mapper.Map<PostResponse>(post);
             return Created(locationUri, response);
         }
     }

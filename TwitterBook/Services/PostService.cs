@@ -20,7 +20,7 @@ public class PostService : IPostService
 
     public async Task<Post> GetPostByIdAsync(Guid postId)
     {
-        return await _dataContext.Posts.SingleOrDefaultAsync(x => x.Id == postId);
+        return await _dataContext.Posts.Include(x => x.PostTags).SingleOrDefaultAsync(x => x.Id == postId);
     }
 
     public async Task<bool> CreatePostAsync(Post post)

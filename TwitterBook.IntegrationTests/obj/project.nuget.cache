@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "tia2Qi8JFr8x4Y59wzqg/IUXvS3jhybW0nDaUU9Jzfl9gmY3jupr/EY4EahPfVT1navyBmWoTz2w3BudLtMc/Q==",
+  "dgSpecHash": "w7INB158QptGPL8uk1QG23T4yAAY+/FqAT72vbSywrBe7KEVslqnWHJhO9QgozcVwHXkQNpq+ZVrSGGs2tEpJQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\blend\\OneDrive\\Desktop\\TweetBook\\TwitterBook.IntegrationTests\\TwitterBook.IntegrationTests.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\blend\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
     "C:\\Users\\blend\\.nuget\\packages\\coverlet.collector\\3.1.2\\coverlet.collector.3.1.2.nupkg.sha512",
     "C:\\Users\\blend\\.nuget\\packages\\fluentassertions\\6.8.0\\fluentassertions.6.8.0.nupkg.sha512",
+    "C:\\Users\\blend\\.nuget\\packages\\fluentvalidation\\11.4.0\\fluentvalidation.11.4.0.nupkg.sha512",
     "C:\\Users\\blend\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\blend\\.nuget\\packages\\microsoft.aspnet.webapi.client\\5.2.9\\microsoft.aspnet.webapi.client.5.2.9.nupkg.sha512",
     "C:\\Users\\blend\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.11\\microsoft.aspnetcore.authentication.jwtbearer.6.0.11.nupkg.sha512",

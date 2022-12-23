@@ -6,6 +6,8 @@ namespace TwitterBook.Domain;
 public class PostTag
 {
     [Key]
+    [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+
     public int Id { get; set; }
     public string TagName { get; set; }
     public Guid PostId { get; set; }
