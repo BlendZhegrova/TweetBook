@@ -1,15 +1,19 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.OpenApi.Models;
 using TwitterBook.Data;
 using TwitterBook.Installers;
+using TwitterBook.MappingProfiles;
 using TwitterBook.Options;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
 InstallerExtensions.InstallServicesInAssembly(builder.Services, builder.Configuration);
+var config = new MapperConfiguration(cfg =>
+{
+    cfg.AddProfile(new DomainToResponseProfile());
+});
+var mapper = config.CreateMapper();
+builder.Services.AddSingleton(mapper);
 
 var app = builder.Build();
 

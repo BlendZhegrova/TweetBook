@@ -1,6 +1,4 @@
-﻿using Swashbuckle.Swagger.Model;
-using TwitterBook.Contracts.V1.Requests;
-using TwitterBook.Domain;
+﻿using TwitterBook.Domain;
 
 namespace TwitterBook.Services;
 

@@ -1,6 +1,4 @@
-﻿using TwitterBook.Controllers.V1;
-
-namespace TwitterBook.Contracts.V1.Requests
+﻿namespace TwitterBook.Contracts.V1.Requests
 {
     public class CreatePostRequest
     {

@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "TXcE8iRldHSw32VvQlJJx7eERKzt0yaGaHFkCKJ1JCgmvVm76tOBCBK7InjbtzKclmLWlO5mL88LgHzWcmZ5sw==",
+  "dgSpecHash": "bXU0qWjHdnBO9uYJrjZwao8qP6+toZjgRCvGXh97cyx5x1qppit4FbZxSUJTfX46lP62JOM3fZVqRVab602/Tw==",
   "success": true,
   "projectFilePath": "C:\\Users\\blend\\OneDrive\\Desktop\\TweetBook\\TwitterBook\\TwitterBook.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\blend\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
+    "C:\\Users\\blend\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
     "C:\\Users\\blend\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\blend\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.11\\microsoft.aspnetcore.authentication.jwtbearer.6.0.11.nupkg.sha512",
     "C:\\Users\\blend\\.nuget\\packages\\microsoft.aspnetcore.authorization\\1.0.0\\microsoft.aspnetcore.authorization.1.0.0.nupkg.sha512",
@@ -25,7 +27,7 @@
     "C:\\Users\\blend\\.nuget\\packages\\microsoft.aspnetcore.routing\\1.0.0\\microsoft.aspnetcore.routing.1.0.0.nupkg.sha512",
     "C:\\Users\\blend\\.nuget\\packages\\microsoft.aspnetcore.routing.abstractions\\1.0.0\\microsoft.aspnetcore.routing.abstractions.1.0.0.nupkg.sha512",
     "C:\\Users\\blend\\.nuget\\packages\\microsoft.aspnetcore.webutilities\\1.0.0\\microsoft.aspnetcore.webutilities.1.0.0.nupkg.sha512",
-    "C:\\Users\\blend\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\blend\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\blend\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",
     "C:\\Users\\blend\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.1.1\\microsoft.data.sqlclient.sni.runtime.2.1.1.nupkg.sha512",
     "C:\\Users\\blend\\.nuget\\packages\\microsoft.dotnet.internalabstractions\\1.0.0\\microsoft.dotnet.internalabstractions.1.0.0.nupkg.sha512",

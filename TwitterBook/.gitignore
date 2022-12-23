@@ -73,7 +73,7 @@ artifacts/
 *.pidb
 *.svclog
 *.scc
-
+*.csproj.nuget.dgspec.json
 # Chutzpah Test files
 _Chutzpah*
 
@@ -531,7 +531,9 @@ FodyWeavers.xsd
 *.msm
 *.msp
 *.dll
-*.pdb
+*.cache
+*.assets.cache
+
 # JetBrains Rider
 
 ### VisualStudio Patch ###

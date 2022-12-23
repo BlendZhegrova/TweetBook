@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.IdentityModel.Tokens.Jwt;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
@@ -39,7 +38,7 @@ public class IdentityService : IIdentityService
         }
 
         var newUserId = Guid.NewGuid();
-        var newUser = new IdentityUser()
+        var newUser = new IdentityUser
         {
             Id = newUserId.ToString(),
             Email = email,
@@ -119,7 +118,7 @@ public class IdentityService : IIdentityService
         };
         await _context.RefreshTokens.AddAsync(refreshToken);
         await _context.SaveChangesAsync();
-        return new AuthenticationResult()
+        return new AuthenticationResult
         {
             Succes = true,
             Token = tokenHandler.WriteToken(token),
@@ -160,7 +159,7 @@ public class IdentityService : IIdentityService
         {
             return new AuthenticationResult
             {
-                Errors = new string[] { "Invalid token" }
+                Errors = new[] { "Invalid token" }
             };
         }
         var expiryDateUnix = long.Parse(validatedToken.Claims.Single(x => x.Type == JwtRegisteredClaimNames.Exp).Value);
@@ -169,7 +168,7 @@ public class IdentityService : IIdentityService
         {
             return new AuthenticationResult
             {
-                Errors = new string[] { "This token hasnt expired yet" }
+                Errors = new[] { "This token hasnt expired yet" }
             };
         }
 
@@ -179,7 +178,7 @@ public class IdentityService : IIdentityService
         {
             return new AuthenticationResult
             {
-                Errors = new string[] { "This token hasnt expired yet" }
+                Errors = new[] { "This token hasnt expired yet" }
             };
         }
 
@@ -187,7 +186,7 @@ public class IdentityService : IIdentityService
         {
             return new AuthenticationResult
             {
-                Errors = new string[] { "This token has expired!" }
+                Errors = new[] { "This token has expired!" }
             };
         }
 
@@ -195,7 +194,7 @@ public class IdentityService : IIdentityService
         {
             return new AuthenticationResult
             {
-                Errors = new string[] { "This token has been invalidated" }
+                Errors = new[] { "This token has been invalidated" }
             };
         }
 
@@ -203,7 +202,7 @@ public class IdentityService : IIdentityService
         {
             return new AuthenticationResult
             {
-                Errors = new string[] { "This token has been used" }
+                Errors = new[] { "This token has been used" }
             };
         }
 
@@ -211,7 +210,7 @@ public class IdentityService : IIdentityService
         {
             return new AuthenticationResult
             {
-                Errors = new string[] { "This token does not match this JWT"}
+                Errors = new[] { "This token does not match this JWT"}
             };
         }
 

@@ -1,8 +1,7 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
 using TwitterBook.Contracts.V1;
 using TwitterBook.Contracts.V1.Requests;
 using TwitterBook.Contracts.V1.Response;
@@ -12,26 +11,22 @@ using TwitterBook.Services;
 
 namespace TwitterBook.Controllers.V1
 {
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,Roles ="Poster")]
     public class PostsController : Controller
     {
         private readonly IPostService _postService;
-
-        public PostsController(IPostService postService)
+        private readonly IMapper _mapper;
+        public PostsController(IPostService postService, IMapper mapper)
         {
             _postService = postService;
+            _mapper = mapper;
         }
 
         [HttpGet(ApiRoutes.Posts.GetAll)]
-        public async Task<IActionResult> AllPostsAsync()
+        public async Task<IActionResult> GetAll()
         {
             var posts = await _postService.GetPostsAsync();
-            var postResponse = posts.Select(post => new PostResponse
-            {
-                Id = post.Id,
-                Name = post.Name,
-                Tags = post.PostTags.Select(x => new TagResponse { Name = x.TagName })
-            });
+            var postResponse = _mapper.Map<List<PostResponse>>(posts);
             return Ok(postResponse);
         }
 
@@ -45,12 +40,12 @@ namespace TwitterBook.Controllers.V1
             {
                 Id = post.Id ,
                 Name = post.Name,
-                Tags = post.PostTags.Select(x=> new TagResponse{Name = x.TagName})
+                PostTags = post.PostTags.Select(x=> new TagResponse{Name = x.TagName})
             });
         }
 
         [HttpPut(ApiRoutes.Posts.Update)]
-        public async Task<IActionResult> Get([FromBody] UpdatePostRequest request)
+        public async Task<IActionResult> Update([FromBody] UpdatePostRequest request)
         {
             var userOwnsPost = await _postService.UserOwnsPostAsync(request.PostId, HttpContext.GetUserId());
             if (!userOwnsPost)
@@ -67,7 +62,8 @@ namespace TwitterBook.Controllers.V1
                 {
                     Id = post.Id,
                     Name = post.Name,
-                    Tags = post.PostTags.Select(x => new TagResponse { Name = x.TagName })
+                    UserId = post.UserId,
+                    PostTags = post.PostTags.Select(x => new TagResponse { Name = x.TagName })
                 });
 
             return NotFound();
@@ -107,7 +103,8 @@ namespace TwitterBook.Controllers.V1
             {
                 Id = post.Id,
                 Name = post.Name,
-                Tags = post.PostTags.Select(x => new TagResponse { Name = x.TagName })
+                UserId = post.UserId,
+                PostTags = post.PostTags.Select(x => new TagResponse { Name = x.TagName })
             };
             return Created(locationUri, response);
         }

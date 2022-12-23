@@ -1,10 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Swashbuckle.Swagger.Model;
-using TwitterBook.Contracts.V1.Requests;
+﻿using Microsoft.EntityFrameworkCore;
 using TwitterBook.Data;
 using TwitterBook.Domain;
-using TwitterBook.Extensions;
 
 namespace TwitterBook.Services;
 

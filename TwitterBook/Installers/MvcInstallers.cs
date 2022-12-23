@@ -1,11 +1,9 @@
 ﻿using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using TwitterBook.Authorization;
-using TwitterBook.Controllers.V1;
 using TwitterBook.Options;
 using TwitterBook.Services;
 
@@ -22,8 +20,7 @@ namespace TwitterBook.Installers
             services.AddSession();
             services.AddSingleton(jwtSettings);
             services.AddControllersWithViews();
-
-            var tokenValidationParameters = new TokenValidationParameters()
+            var tokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.Secret)),

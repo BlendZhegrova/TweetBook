@@ -32,7 +32,7 @@ public class IdentityController : Controller
                 Errors = authResponse.Errors
             });
         }
-        return Ok(new AuthSuccesResponse()
+        return Ok(new AuthSuccesResponse
         {
             Token = authResponse.Token
         });
@@ -49,7 +49,7 @@ public class IdentityController : Controller
                 Errors = authResponse.Errors
             });
         }
-        return Ok(new AuthSuccesResponse()
+        return Ok(new AuthSuccesResponse
         {
             Token = authResponse.Token,
             RefreshToken = authResponse.RefreshToken
@@ -67,7 +67,7 @@ public class IdentityController : Controller
                 Errors = authResponse.Errors
             });
         }
-        return Ok(new AuthSuccesResponse()
+        return Ok(new AuthSuccesResponse
         {
             Token = authResponse.Token,
             RefreshToken = authResponse.RefreshToken

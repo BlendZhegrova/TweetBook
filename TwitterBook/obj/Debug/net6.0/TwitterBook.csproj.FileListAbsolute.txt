@@ -222,3 +222,5 @@ C:\Users\blend\OneDrive\Desktop\TweetBook\TwitterBook\obj\Debug\net6.0\refint\Tw
 C:\Users\blend\OneDrive\Desktop\TweetBook\TwitterBook\obj\Debug\net6.0\TwitterBook.pdb
 C:\Users\blend\OneDrive\Desktop\TweetBook\TwitterBook\obj\Debug\net6.0\TwitterBook.genruntimeconfig.cache
 C:\Users\blend\OneDrive\Desktop\TweetBook\TwitterBook\obj\Debug\net6.0\ref\TwitterBook.dll
+C:\Users\blend\OneDrive\Desktop\TweetBook\TwitterBook\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\blend\OneDrive\Desktop\TweetBook\TwitterBook\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
