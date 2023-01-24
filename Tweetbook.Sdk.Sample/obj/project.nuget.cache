@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "JF/ePxWX9AgxTOPw5QI2yN3IGivonZuyTccisTf318tvRZzFSPPLTmO4tg18Afg0dixqCVegcAuPFtKFIADVWg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\blend\\OneDrive\\Desktop\\TweetBook\\Tweetbook.Sdk.Sample\\Tweetbook.Sdk.Sample.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\blend\\.nuget\\packages\\refit\\6.3.2\\refit.6.3.2.nupkg.sha512",
+    "C:\\Users\\blend\\.nuget\\packages\\system.net.http.json\\6.0.0\\system.net.http.json.6.0.0.nupkg.sha512",
+    "C:\\Users\\blend\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "C:\\Users\\blend\\.nuget\\packages\\system.text.encodings.web\\6.0.0\\system.text.encodings.web.6.0.0.nupkg.sha512",
+    "C:\\Users\\blend\\.nuget\\packages\\system.text.json\\6.0.0\\system.text.json.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

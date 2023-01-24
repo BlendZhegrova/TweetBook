@@ -32,7 +32,7 @@ public class IntegrationTest : IDisposable
                     services.AddEntityFrameworkInMemoryDatabase();
                     services.AddDbContext<DataContext>(options =>
                     {
-                        options.UseInMemoryDatabase("testDb");
+                        options.UseInMemoryDatabase("TestDb");
                     });
                 });
             });

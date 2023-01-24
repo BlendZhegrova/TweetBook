@@ -1,9 +1,12 @@
 ﻿using System.Text;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using TwitterBook.Authorization;
+using TwitterBook.Domain;
+using TwitterBook.Filters;
 using TwitterBook.Options;
 using TwitterBook.Services;
 
@@ -20,6 +23,17 @@ namespace TwitterBook.Installers
             services.AddSession();
             services.AddSingleton(jwtSettings);
             services.AddControllersWithViews();
+            services.AddMvc(options =>
+                {
+                    options.EnableEndpointRouting = false;
+                    options.Filters.Add<ValidationFilter>();
+                }
+            );
+            services.AddFluentValidation(fv =>
+            {
+                fv.RegisterValidatorsFromAssemblyContaining<Program>();
+            });
+            
             var tokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
@@ -42,6 +56,7 @@ namespace TwitterBook.Installers
                 x.SaveToken = true;
                 x.TokenValidationParameters = tokenValidationParameters;
             });
+
             // services.AddAuthorization(options =>
             // {
             //     options.AddPolicy("TagViewer", builder =>
@@ -54,58 +69,17 @@ namespace TwitterBook.Installers
                 options.AddPolicy("MustWorkForCompany",
                     policy => { policy.AddRequirements(new WorksForCompanyRequirement("company.com")); });
             });
+            services.AddHttpContextAccessor();
             services.AddSingleton<IAuthorizationHandler, WorksForCompanyHandler>();
-            services.AddSwaggerGen(swaggerGenOptions =>
-            {
-                swaggerGenOptions.SwaggerDoc("v1", new OpenApiInfo
+            services.AddSingleton<IUriService>
+                (provider =>
                 {
-                    Title = "ASP.NET tutorial", Version = "v1"
+                    var accesor = provider.GetRequiredService<IHttpContextAccessor>();
+                    var request = accesor.HttpContext.Request;
+                    var absoluteUri = string.Concat(request.Scheme, "://", request.Host.ToUriComponent(), "/");
+                    return new UriService(absoluteUri);
                 });
-                var security = new Dictionary<string, IEnumerable<string>>
-                {
-                    { "Bearer", new string[0] }
-                };
-                swaggerGenOptions.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                {
-                    In = ParameterLocation.Header,
-                    Description = "JWT Authorization header using the bearer scheme",
-                    Name = "Authorization",
-                    Type = SecuritySchemeType.ApiKey,
-                    BearerFormat = "JWT",
-                    Scheme = "Bearer"
-                });
-                // swaggerGenOptions.AddSecurityRequirement(new OpenApiSecurityRequirement()
-                // {
-                //     {
-                //         new OpenApiSecurityScheme
-                //         {
-                //             Reference = new OpenApiReference
-                //             {
-                //                 Type = ReferenceType.SecurityScheme,
-                //                 Id = "Bearer"
-                //             },
-                //             Scheme = "oauth2",
-                //             Name = "bearer",
-                //             In = ParameterLocation.Header,
-                //         },
-                //         new List<string>()
-                //     }
-                // });
-                swaggerGenOptions.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
-                    {
-                        new OpenApiSecurityScheme
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer"
-                            }
-                        },
-                        new string[] { }
-                    }
-                });
-            });
+            
         }
     }
 }

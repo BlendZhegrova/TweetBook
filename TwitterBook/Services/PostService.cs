@@ -13,9 +13,17 @@ public class PostService : IPostService
         _dataContext = dataContext;
     }
 
-    public async Task<List<Post>> GetPostsAsync()
+    public async Task<List<Post>> GetPostsAsync(PaginationFilter paginationFilter = null)
     {
+        if (paginationFilter == null)
+        {
         return await _dataContext.Posts.Include(x => x.PostTags).ToListAsync();
+        }
+
+        var skip = (paginationFilter.PageNumber - 1) * paginationFilter.PageSize;
+        return await _dataContext.Posts.Include(x => x.PostTags).Skip(skip)
+            .Take(paginationFilter.PageSize)
+            .ToListAsync();
     }
 
     public async Task<Post> GetPostByIdAsync(Guid postId)
