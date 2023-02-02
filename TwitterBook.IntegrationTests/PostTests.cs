@@ -1,12 +1,25 @@
-﻿using System.Net;
+﻿using System.Diagnostics;
+using System.Net;
 using FluentAssertions;
 using TwitterBook.Contracts.V1;
+using TwitterBook.Contracts.V1.Response;
 using TwitterBook.Domain;
 
 namespace TwitterBook.IntegrationTests;
 
 public class PostTests : IntegrationTest
 {
+
+    [Fact]
+    public async Task NormalAllPostsReturn()
+    {
+        await AuthenticateAsync();
+
+        Stopwatch.StartNew();
+        TestClient.GetAsync();
+    }
+    
+    
     
     [Fact]
     public async Task GetAll_WithoutAnyPostsReturnsEmpty()
@@ -29,27 +42,19 @@ public class PostTests : IntegrationTest
         var response = await TestClient.GetAsync(ApiRoutes.Posts.GetAll);
         //Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
-        (await response.Content.ReadAsAsync<List<Post>>()).Should().NotBeEmpty();   
+        var posts = (await response.Content.ReadAsAsync<PagedResponse<PostResponse>>()).Data.ToList();
+        // (await response.Content.ReadAsAsync<PagedResponse<PostResponse>>()).Data.ToList().Should().NotBeEmpty();
+        posts.Should().NotBeEmpty();
     }
 
     [Theory]
-    [InlineData("23")]
+    [InlineData("0d0951b5-133b-4bcc-90b0-5a9fe0321ea7")]
     public async Task ShouldReturn404PostNotFound(string value)
     {
         await AuthenticateAsync();
 
         var response = await TestClient.GetAsync($"{ApiRoutes.Posts.Get}/{value}");
-        (await response.Content.ReadAsAsync<Post>()).Should().Be(HttpStatusCode.BadRequest);   
-
-    }
-    [Theory]
-    [InlineData("C3B96F7F-123A-4DFC-205B-08DAD3AC93D5")]
-    public async Task ShoudlReturnAPost(string value)
-    {
-        await AuthenticateAsync();
-
-        var response = await TestClient.GetAsync($"api/v1/posts/{value}");
-        (await response.Content.ReadAsAsync<Post>()).Should().Be(HttpStatusCode.OK);   
+        response.StatusCode.Should().Be(HttpStatusCode.NotFound);   
 
     }
 }

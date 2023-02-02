@@ -2,15 +2,12 @@
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\6.0.7\ref\net6.0\System.Net.WebClient.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=0040d48e_002D30eb_002D49dc_002Dbc99_002Dfb6ed720956b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Session" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=41b85453_002Defba_002D48f0_002Da84d_002D94412f7db09c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetAll_WithoutAnyPostsReturnsEmpty" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::20640EAF-EAD6-4AFC-9FC3-082F01BD259D::net6.0::TwitterBook.IntegrationTests.PostTests.GetAll_WithoutAnyPostsReturnsEmpty&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::20640EAF-EAD6-4AFC-9FC3-082F01BD259D::net6.0::TwitterBook.IntegrationTests.PostTests.GetAllReturnsPosts&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::20640EAF-EAD6-4AFC-9FC3-082F01BD259D::net6.0::TwitterBook.IntegrationTests.PostTests.ShouldReturn404PostNotFound&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::20640EAF-EAD6-4AFC-9FC3-082F01BD259D::net6.0::TwitterBook.IntegrationTests.PostTests.ShoudlReturnAPost&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f0003f5e_002Da4f1_002D4545_002D8b94_002D9de47a0c4bd5/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ShoudlReturnAPost" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::20640EAF-EAD6-4AFC-9FC3-082F01BD259D::net6.0::TwitterBook.IntegrationTests.PostTests.ShoudlReturnAPost&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
+	
+	</wpf:ResourceDictionary>

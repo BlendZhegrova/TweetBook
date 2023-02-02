@@ -7,6 +7,7 @@
         public const string Base = $"{Root}/{Version}";
         public static class Posts
         {
+            public const string GetViaSQL =$"{Base}/"
             public const string GetAll = $"{Base}/posts";
             public const string Get = Base + "/posts/{postId}";
             public const string Update = Base + "/posts/{postId}";
